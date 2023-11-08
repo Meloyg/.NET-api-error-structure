@@ -46,6 +46,10 @@ public class ApiErrorHandlerMiddleware
                 response.StatusCode = StatusCodes.Status404NotFound;
                 errorResponse.Message = exception.Message;
                 break;
+            case ArgumentException:
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                errorResponse.Message = exception.Message;
+                break;
             default:
                 response.StatusCode = StatusCodes.Status500InternalServerError;
                 errorResponse.Message = exception.Message;
