@@ -1,4 +1,4 @@
-namespace ErrorStructure;
+namespace ErrorStructure.Models;
 
 public class WeatherForecast
 {

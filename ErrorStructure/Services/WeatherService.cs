@@ -1,14 +1,14 @@
 using ErrorStructure.Exceptions;
+using ErrorStructure.Models;
 
 namespace ErrorStructure.Services;
 
 public class WeatherService : IWeatherService
 {
-    private static readonly string[] Summaries = new[]
+    public static readonly string[] Summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
-
 
     public WeatherService()
     {
@@ -30,5 +30,18 @@ public class WeatherService : IWeatherService
         }
 
         return weatherForecasts;
+    }
+    
+    public WeatherForecast GetWeatherForecastBySummary(string summary)
+    {
+        var weatherForecast = GetAllWeatherForecasts()
+            .FirstOrDefault(wf => wf.Summary.Equals(summary, StringComparison.OrdinalIgnoreCase));
+
+        if (weatherForecast == null)
+        {
+            throw new NotFoundException($"No weather forecast found with summary '{summary}'.");
+        }
+
+        return weatherForecast;
     }
 }
